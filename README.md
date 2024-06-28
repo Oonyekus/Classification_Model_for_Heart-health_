@@ -362,8 +362,26 @@ In the medical field, high accuracy and trust in predictive models are paramount
 
 ## Limitations 
 ---
-what limitations, modification, removal, exclusion were done because of their effect on the analysis 
+1. Introduction of Missing Values:
+
+* Limitation: For demonstration purposes, missing values were manually introduced into an initially clean dataset. This approach does not accurately reflect real-world scenarios where missing data patterns are often more complex.
+* Impact: The methods demonstrated for handling missing values may not be fully applicable to actual datasets with naturally occurring missing data, potentially limiting the generalizability and practical application of the findings.
+
+
+2. Dataset Representativeness:
+* Limitation: The 'Heart health' dataset obtained from Kaggle may not be representative of the general population. The dataset's demographic and clinical characteristics might introduce biases.
+* Impact: The insights and model predictions derived from this dataset may not generalize well to other populations or real-world settings. This limitation affects the external validity of the analysis.
+
+
+3. Preprocessing Decisions:
+* Limitation: Key preprocessing steps, such as the removal of duplicates and outliers, were undertaken without a detailed analysis of their impact on the dataset. Additionally, the primary focus on systolic blood pressure might overlook other important factors.
+* Impact: These preprocessing choices can influence the data distribution and model performance. The emphasis on a single predictor variable may result in models that are less comprehensive and potentially biased, limiting their effectiveness in capturing the multifactorial nature of heart attack risk.
 
 
 ## References
 ---
+* Mahad, M. (2024) Heart health stats dataset, Kaggle. Available at: https://www.kaggle.com/datasets/mahad049/heart-health-stats- dataset?phase=FinishSSORegistration&returnUrl=%2Fdatasets%2Fmahad0 49%2Fheart-health-stats- dataset%2Fversions%2F1%3Fresource%3Ddownload&SSORegistrationTok en=CfDJ8NaX4LWNDABNvJ0hP3zKe6hswQupZmcKdOvVHic1cjEkvs12KE3 clxplbXubcMbCWTucVdFmmTndTRRYv33htIq5aCJhGd1d_l3UOHACphLvN L9Q69eMxYuwbXSQct8GbPxrxG7bsb4QlElGGtEKVZDsC6HK3jWYDtLtpVQ W26pIYSHUDWzAyya5v5CX66PoZ70pfsxA1NTGixfE6o199dBgPzHIGN6p3 uqIBvoEjsRCQb6zbUUsc85Ct_KHLRVhpxg2E5_FcsuymBy_Vz60Rn13tapt6 eak29r- T4Lkxiw4eBP5iHNsYkxcI1dbde8yyZzcXVKqsNU5wiLjv7ORyM5BSmIU&Disp layName=Kelly%2BOrji (Accessed: 24 April 2024).
+* PythonKitchen, email@hotmail. com (2024) Quality Python articles, Logistic Regression vs. K Nearest Neighbors in Machine Learning. Available at: https://www.pythonkitchen.com/logistic-regression-vs-k-nearest-neighbors-in- machine-learning/ (Accessed: 24 April 2024).
+* Strandberg, T.E. and Pitkala, K. (2023) What is the most important component of blood pressure: Systolic, diastolic or pulse pressure?, Current opinion in nephrology and hypertension. Available at: https://pubmed.ncbi.nlm.nih.gov/12698068/#:~:text=Recent%20findings%3A %20Generally%2C%20in%20studies,a%20better%20predictor%20of%20risk. (Accessed: 24 April 2024).
+* Tableau, T. (2024) Guide to data cleaning: Definition, benefits, components, and how to clean your data, Tableau. Available at: https://www.tableau.com/learn/articles/what-is-data-cleaning (Accessed: 24 April 2024).
+* Toma, M. and Wei, O.C. (2023) Predictive modeling in medicine, MDPI. Available at: https://www.mdpi.com/2673-8392/3/2/42 (Accessed: 24 April 2024).
