@@ -38,9 +38,261 @@ what qts were asked to find the trend in data
 ---
 some interesting code
 ``` py
-print ('Kelly')
+Heart_health[['Systolic BP', 'Diastolic BP']] = Heart_health['Blood Pressure(mmHg)'].astype(str).str.split('/', expand=True)
+#Heart_health[['Systolic BP', 'Diastolic BP']] = Heart_health['Blood Pressure'].apply(split_blood_pressure).apply(pd.Series)
+Heart_health.drop(columns=['Blood Pressure(mmHg)'], inplace=True)
 ```
 
+``` py
+Heart_health[['Systolic BP', 'Diastolic BP']] = Heart_health[['Systolic BP', 'Diastolic BP']].astype(int)
+Heart_health['Gender'] = Heart_health['Gender'].map({'Male': 1, 'Female': 0})
+Heart_health['Smoker'] = Heart_health['Smoker'].map({'No': 0, 'Yes': 1 })
+print(Heart_health.dtypes)
+```
+
+``` py
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+
+
+# Selecting predictors by dropping the columns not needed
+X = Heart_health.drop(['Height(cm)', 'Smoker','Diastolic BP'], axis=1)
+
+# Target variable
+Y = Heart_health['Heart Attack']
+
+# Splitting the dataset into test and train
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+
+# Creating and fitting the logistic regression model
+model_1= LogisticRegression()
+model_1.fit(X_train, Y_train)
+
+# Making predictions on both the training and test sets
+Y_train_pred = model_1.predict(X_train)
+Y_test_pred = model_1.predict(X_test)
+
+# Calculating and printing performance metrics
+print("Training Accuracy:", accuracy_score(Y_train, Y_train_pred))
+print("Test Accuracy:", accuracy_score(Y_test, Y_test_pred))
+
+print("\nConfusion Matrix (Train Data):")
+print(confusion_matrix(Y_train, Y_train_pred))
+
+print("\nConfusion Matrix (Test Data):")
+print(confusion_matrix(Y_test, Y_test_pred))
+
+cm_train = confusion_matrix(Y_train, Y_train_pred)
+
+# Extract values from confusion matrix for training data
+TN_train = cm_train[0, 0]
+FP_train = cm_train[0, 1]
+FN_train = cm_train[1, 0]
+TP_train = cm_train[1, 1]
+
+# Calculate sensitivity (recall) and specificity for training data
+sensitivity_train = TP_train / (TP_train + FN_train)
+specificity_train = TN_train / (TN_train + FP_train)
+
+print("\nTraining Sensitivity:", sensitivity_train)
+print("Training Specificity:", specificity_train)
+
+# Calculate confusion matrix for test data
+cm_test = confusion_matrix(Y_test, Y_test_pred)
+
+# Extract values from confusion matrix for test data
+TN_test = cm_test[0, 0]
+FP_test = cm_test[0, 1]
+FN_test = cm_test[1, 0]
+TP_test = cm_test[1, 1]
+
+# Calculate sensitivity (recall) and specificity for test data
+sensitivity_test = TP_test / (TP_test + FN_test)
+specificity_test = TN_test / (TN_test + FP_test)
+
+print("\nTest Sensitivity:", sensitivity_test)
+print("Test Specificity:", specificity_test)
+```
+
+``` py
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.preprocessing import StandardScaler
+
+# This is Model 1 ( (with KNN = 3)
+
+# Selecting predictors
+X = Heart_health[['Weight(kg)', 'Cholesterol(mg/dL)','Exercise(hours/week)' ]]
+# Target variable
+Y = Heart_health['Heart Attack']
+
+# For some models like KNN, we need to do feature scaling
+scaler = StandardScaler(with_mean=True, with_std=True, copy=True)
+scaler.fit(X)
+X_std = scaler.transform(X)
+
+# Splitting the dataset into test and train
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+# Creating and fitting the KNN model with k=3
+knn_model = KNeighborsClassifier(n_neighbors=3)
+knn_model.fit(X_train, Y_train)
+
+# Making predictions on both the training and test sets
+Y_train_pred_knn = knn_model.predict(X_train)
+Y_test_pred_knn = knn_model.predict(X_test)
+
+# Calculating and printing performance metrics
+print("Training Accuracy (KNN, k=3):", accuracy_score(Y_train, Y_train_pred_knn))
+print("Test Accuracy (KNN, k=3):", accuracy_score(Y_test, Y_test_pred_knn))
+
+print("\nConfusion Matrix (Train Data, KNN, k=3):")
+print(confusion_matrix(Y_train, Y_train_pred_knn))
+
+print("\nConfusion Matrix (Test Data, KNN, k=3):")
+print(confusion_matrix(Y_test, Y_test_pred_knn))
+
+
+cm_train = confusion_matrix(Y_train, Y_train_pred_knn)
+
+# Extract values from confusion matrix for training data
+TN_train = cm_train[0, 0]
+FP_train = cm_train[0, 1]
+FN_train = cm_train[1, 0]
+TP_train = cm_train[1, 1]
+
+# Calculate sensitivity (recall) and specificity for training data
+sensitivity_train = TP_train / (TP_train + FN_train)
+specificity_train = TN_train / (TN_train + FP_train)
+
+print("\nTraining Sensitivity:", sensitivity_train)
+print("Training Specificity:", specificity_train)
+
+# Calculate confusion matrix for test data
+cm_test = confusion_matrix(Y_test, Y_test_pred_knn)
+
+# Extract values from confusion matrix for test data
+TN_test = cm_test[0, 0]
+FP_test = cm_test[0, 1]
+FN_test = cm_test[1, 0]
+TP_test = cm_test[1, 1]
+
+# Calculate sensitivity (recall) and specificity for test data
+sensitivity_test = TP_test / (TP_test + FN_test)
+specificity_test = TN_test / (TN_test + FP_test)
+
+print("\nTest Sensitivity:", sensitivity_test)
+print("Test Specificity:", specificity_test)
+```
+
+``` py
+# List of numerical variables
+numerical_vars = ['Age', 'Height(cm)', 'Weight(kg)', 'Cholesterol(mg/dL)', 'Glucose(mg/dL)', 'Exercise(hours/week)', 'Systolic BP', 'Diastolic BP']
+
+# Setting up the figure and axes for the 3x3 grid
+fig, axes = plt.subplots(1, 2, figsize=(8, 5)) # Adjust the size as needed
+fig.suptitle('Relationship between Numerical Variables and Heart Attack')
+
+#axes = axes.flatten()  # Flattening the array of axes for easy iteration
+sns.boxplot(x='Heart Attack', y= 'Age', data=Heart_health, ax=axes[0])
+axes[0].set_title(f'{numerical_vars[0]} vs Heart Attack', fontsize=14)
+axes[0].set_xlabel('') # Remove x labels to declutter
+axes[0].set_ylabel('')
+
+sns.boxplot(x='Heart Attack', y= 'Height(cm)', data=Heart_health, ax=axes[1])
+axes[1].set_title(f'{numerical_vars[1]} vs Heart Attack', fontsize=14)
+axes[1].set_xlabel('') # Remove x labels to declutter
+axes[1].set_ylabel('')
+
+# categorical variables
+categorical_vars = ['Gender', 'Smoker']
+
+# Setting up the figure for the 1x3 grid
+fig, axes = plt.subplots(1, 2, figsize=(18, 6)) # Adjust the size as needed
+
+# Manually creating each plot
+sns.countplot(x='Gender', hue='Heart Attack', data=Heart_health, ax=axes[0])
+axes[0].set_title('Distribution of Heart Attack by Gender')
+
+sns.countplot(x='Smoker', hue='Heart Attack', data=Heart_health, ax=axes[1])
+axes[1].set_title('Distribution of Heart Attack by Smoker')
+
+plt.tight_layout()  # Adjust the layout to make room for the titles
+plt.show()
+```
+
+``` py
+from sklearn.model_selection import train_test_split
+from sklearn import tree
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Selecting predictors by dropping 'Sales' and target variable 'High'
+X = Heart_health.drop(['Heart Attack'], axis=1)
+X
+# Encoding categorical variables
+X_encoded = pd.get_dummies(X, drop_first=True)  # drop_first to avoid dummy variable trap
+X_encoded
+
+# Target variable
+Y = Heart_health['Heart Attack']
+
+# Split the data into training and test sets
+X_train, X_test, Y_train, Y_test = train_test_split(X_encoded, Y, test_size=0.2, random_state=42)
+
+# Creating and fitting the Decision Tree model on the training dataset
+model = DecisionTreeClassifier(criterion='entropy', max_depth=5, random_state=4) ##### Increasing max depth gives better training accuracy, but lower test accuracy
+
+model.fit(X_train, Y_train)
+
+# Making predictions on both the training and test sets
+Y_train_pred = model.predict(X_train)
+Y_test_pred = model.predict(X_test)
+
+# Calculating and printing performance metrics
+print("Training Accuracy:", accuracy_score(Y_train, Y_train_pred))
+print("Test Accuracy:", accuracy_score(Y_test, Y_test_pred))
+
+print("\nConfusion Matrix (Train Data):")
+print(confusion_matrix(Y_train, Y_train_pred))
+
+print("\nConfusion Matrix (Test Data):")
+print(confusion_matrix(Y_test, Y_test_pred))
+
+cm_train = confusion_matrix(Y_train, Y_train_pred)
+
+# Extract values from confusion matrix for training data
+TN_train = cm_train[0, 0]
+FP_train = cm_train[0, 1]
+FN_train = cm_train[1, 0]
+TP_train = cm_train[1, 1]
+
+# Calculate sensitivity (recall) and specificity for training data
+sensitivity_train = TP_train / (TP_train + FN_train)
+specificity_train = TN_train / (TN_train + FP_train)
+
+print("\nTraining Sensitivity:", sensitivity_train)
+print("Training Specificity:", specificity_train)
+
+# Calculate confusion matrix for test data
+cm_test = confusion_matrix(Y_test, Y_test_pred)
+
+# Extract values from confusion matrix for test data
+TN_test = cm_test[0, 0]
+FP_test = cm_test[0, 1]
+FN_test = cm_test[1, 0]
+TP_test = cm_test[1, 1]
+
+# Calculate sensitivity (recall) and specificity for test data
+sensitivity_test = TP_test / (TP_test + FN_test)
+specificity_test = TN_test / (TN_test + FP_test)
+
+print("\nTest Sensitivity:", sensitivity_test)
+print("Test Specificity:", specificity_test)
+```
 
 ## Result and Findings
 ---
