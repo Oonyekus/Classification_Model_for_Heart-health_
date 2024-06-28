@@ -14,7 +14,7 @@
 
 ## Overview
 ---
-In this analysis, I predicted heart attacks using classification models, specifically logistic regression, K-nearest neighbours (KNN) algorithms and Decision Tree. The goal was to create models that, from a variety of variables, properly estimate the risk of a heart attack. To do this, 1 created 5 logical regression models, 3 KNN algorithms and 1 tree with different combinations and a number of predictor variables, each representing different aspects of an individual's health profile.
+In this analysis, I predicted heart attacks using classification models, specifically logistic regression, K-nearest neighbours (KNN) algorithms, and Decision Tree. The goal was to create models that, from a variety of variables, properly estimate the risk of a heart attack. To do this, 1 created 5 logical regression models, 3 KNN algorithms, and 1 tree with different combinations and a number of predictor variables, each representing different aspects of an individual's health profile.
 
 ## Data Sources
 ---
@@ -31,8 +31,12 @@ Although I initially obtained  a clean dataset, I manually entered a few missing
 
 ## Exploratory Data Analysis
 ---
-what qts were asked to find the trend in data
-
+To perform a comprehensive EDA, these questions were highlighted as the guide.
+* What is the overall structure and summary statistics of the dataset?
+* Are there any missing values or outliers in the dataset, and how should they be handled?
+* What is the distribution of the target variable (heart attack occurrence), and is there any class imbalance?
+* What are the relationships between the predictor variables and the target variable?
+* How are the predictor variables correlated with each other, and are there any multicollinearity issues?
 
 ## Data Analysis 
 ---
