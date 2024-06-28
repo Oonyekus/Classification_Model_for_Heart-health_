@@ -14,7 +14,7 @@
 
 ## Overview
 ---
-In this analysis, I predicted heart attacks using classification models, specifically logistic regression, K-nearest neighbours (KNN) algorithms, and Decision Tree. The goal was to create models that, from a variety of variables, properly estimate the risk of a heart attack. To do this, 1 created 5 logical regression models, 3 KNN algorithms, and 1 tree with different combinations and a number of predictor variables, each representing different aspects of an individual's health profile.
+In this analysis, I predicted heart attacks using classification models, specifically logistic regression, K-nearest neighbours (KNN) algorithms, and Decision Tree. The goal was to create models that, from a variety of variables, properly estimate the risk of a heart attack. To do this, 1 created 5 logical regression models, 3 KNN algorithms, and 1 tree with different combinations and several predictor variables, each representing different aspects of an individual's health profile.
 
 ## Data Sources
 ---
@@ -307,15 +307,20 @@ Logistic Regression
 
 Recommendation: Considering the simplicity and interpretability of logistic regression, Models 1 and 2 could be preferred for deployment.
 
+<img width="1003" alt="Screenshot 2024-04-24 at 11 40 46" src="https://github.com/Oonyekus/Classification_Model_for_Heart-health_/assets/159920483/e360fe3b-1756-4b4d-9bda-fbe1f5301dec">
 
 KNN
 All KNN models showed high accuracy and robustness, with Model 2 performing slightly better than the others. KNN models are suitable when the dataset is not too large and computational efficiency is not a primary concern.
 * Model 2 (KNN, k=5) might be the best choice due to its balanced performance and utilisation of a moderate number of variables.
 
+<img width="1003" alt="Screenshot 2024-04-24 at 11 41 47" src="https://github.com/Oonyekus/Classification_Model_for_Heart-health_/assets/159920483/45776681-8ea8-4966-a3d2-7a651f0199f5">
+
 
 Tree
 * The decision tree model demonstrates high accuracy on both the training and test datasets, indicating its effectiveness in predicting heart attacks based on the provided features.
 * The model's perfect training accuracy suggests that it may be overfitting to the training data. However, the high-test accuracy indicates that it generalises well to unseen data.
+
+<img width="1237" alt="Screenshot 2024-04-29 at 14 47 32" src="https://github.com/Oonyekus/Classification_Model_for_Heart-health_/assets/159920483/4b7c15b8-ced0-47a0-8631-f42205731207">
 
 
 ## Recommendation
